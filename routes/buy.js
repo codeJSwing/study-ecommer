@@ -10,8 +10,15 @@ router.get("/", (req, res) => {
 })
 
 router.post("/create", (req, res) => {
+    const newBuying = {
+        title : req.body.buyingTitle,
+        price : req.body.buyingPrice,
+        desc : req.body.content
+    }
+
     res.json({
-        message : "create new object"
+        message : "create new object",
+        buyingInfo : newBuying
     })
 })
 

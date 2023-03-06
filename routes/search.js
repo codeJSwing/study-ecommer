@@ -8,8 +8,14 @@ router.get("/", (req, res) => {
 })
 
 router.post("/create", (req, res) => {
+    const newSearching = {
+        name: req.body.personName,
+        where: req.body.searchingPlace,
+        desc: req.body.content
+    }
     res.json({
-        msg : "create new searching object"
+        msg : "create new searching object",
+        searchingInfo: newSearching
     })
 })
 
