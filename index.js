@@ -8,6 +8,10 @@ import morgan from "morgan"
 import bodyParser from "body-parser"
 import mongoose from "mongoose"
 
+// router import
+import productRouter from "./routes/product.js"
+import orderRouter from "./routes/order.js"
+
 // library setting
 dotenv.config()
 app.use(morgan("dev"))
@@ -20,6 +24,10 @@ mongoose
     .connect(dbAddress)
     .then(() => console.log("Mongo DB Connected"))
     .catch(err => console.log(err.message))
+
+// router
+app.use("/product", productRouter)
+app.use("/order", orderRouter)
 
 // port
 const port = process.env.PORT || 9000
