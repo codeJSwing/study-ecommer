@@ -8,8 +8,15 @@ import morgan from "morgan"
 import bodyParser from "body-parser"
 import mongoose from "mongoose";
 
-// router
+// router import
+import productRouter from "./routes/product.js"
+import orderRouter from "./routes/order.js"
 
+// library setting
+dotenv.config()
+app.use(morgan("dev"))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 // DB connection
 const dbAddress = process.env.MONGODB_URL
@@ -18,11 +25,9 @@ mongoose
     .then(() => console.log("Mongo DB Connected"))
     .catch(err => console.log(err.message))
 
-// library setting
-dotenv.config()
-app.use(morgan("dev"))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+// router
+app.use("/product", productRouter)
+app.use("/order", orderRouter)
 
 // port
 const port = process.env.PORT || 9000
