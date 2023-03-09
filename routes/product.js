@@ -23,6 +23,11 @@ router.get("/:id", (req, res) => {
    productModel
        .findById(req.params.id)
        .then(product => {
+           if(product == null){
+               res.json({
+                   msg: `no data`
+               })
+           }
            res.json({
                msg: `successful get product ${req.params.id}`,
                product: product
@@ -66,9 +71,33 @@ router.put("/", (req, res) => {
 })
 
 router.delete("/", (req, res) => {
-    res.json({
-        msg: "delete data"
-    })
+    productModel
+        .deleteMany()
+        .then(_ => {
+            res.json({
+                msg: "successful delete data"
+            })
+        })
+        .catch(err => {
+            res.status(404).json({
+                msg: err.message
+            })
+        })
+})
+
+router.delete("/:id", (req, res) => {
+    productModel
+        .findByIdAndDelete(req.params.id)
+        .then(() => {
+            res.json({
+                msg: `successful delete a data`
+            })
+        })
+        .catch(err => {
+            res.status(404).json({
+                msg: err.message
+            })
+        })
 })
 
 export default router
