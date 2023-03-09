@@ -8,5 +8,6 @@ const productSchema = mongoose.Schema({
     desc: String
 })
 
-module.exports = mongoose.model("Product", productSchema)
+const productModel = mongoose.model("Product", productSchema)
+export default productModel
 

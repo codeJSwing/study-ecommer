@@ -1,4 +1,5 @@
 import express from "express";
+import orderModel from "../models/order.js";
 const router = express.Router()
 
 router.get("/", (req, res) => {
@@ -8,15 +9,25 @@ router.get("/", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-    const newOrder = {
-        name: req.body.orderName,
-        price: req.body.orderPrice,
-        desc: req.body.content
-    }
-    res.json({
-        msg: "create new order",
-        orderInfo: newOrder
+    const newOrder = new orderModel ({
+        product: req.body.orderProduct,
+        quantity: req.body.orderquantity
     })
+    newOrder
+        .save()
+        .then(result => {
+            res.json({
+                msg: "create new order"
+                newOrderInfo: {
+                    quantity: result.quantity
+                }
+            })
+        })
+        .catch(err => {
+            res.status(404).json({
+                msg: err.message
+            })
+        })
 })
 
 router.put("/", (req, res) => {
