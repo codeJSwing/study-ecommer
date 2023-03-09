@@ -7,6 +7,12 @@ router.get("/", (req, res) => {
     })
 })
 
+router.get("/:id", (req, res) => {
+    res.json({
+
+    })
+})
+
 router.post("/", (req, res) => {
     const newProduct = {
         name: req.body.productName,
