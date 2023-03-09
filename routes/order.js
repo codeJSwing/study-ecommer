@@ -10,14 +10,14 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const newOrder = new orderModel ({
-        product: req.body.orderProduct,
-        quantity: req.body.orderquantity
+        place: req.body.orderPlace,
+        quantity: req.body.orderQuantity
     })
     newOrder
         .save()
         .then(result => {
             res.json({
-                msg: "create new order"
+                msg: "create new order",
                 newOrderInfo: {
                     quantity: result.quantity
                 }
