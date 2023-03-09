@@ -64,10 +64,23 @@ router.post("/", (req, res) => {
         })
 })
 
-router.put("/", (req, res) => {
-    res.json({
-        msg: "update data"
-    })
+router.put("/:id", (req, res) => {
+    const updateOps = {};
+    for (const ops of req.body){
+        updateOps[ops.propName] = ops.value;
+    }
+    productModel
+        .findByIdAndUpdate(req.params.id, {$set: updateOps})
+        .then(() => {
+            res.json({
+                msg: `updated product by ${req.params.id}`
+            })
+        })
+        .catch(err => {
+            res.json({
+                msg: err.message
+            })
+        })
 })
 
 router.delete("/", (req, res) => {
